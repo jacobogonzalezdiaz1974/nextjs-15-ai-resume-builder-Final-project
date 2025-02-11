@@ -62,6 +62,7 @@ async function handleSessionCompleted(session: Stripe.Checkout.Session) {
 }
 
 async function handleSubscriptionCreatedOrUpdated(subscriptionId: string) {
+  console.log("handleSubscriptionCreatedOrUpdated", subscriptionId);
   const subscription = await stripe.subscriptions.retrieve(subscriptionId);
 
   if (
@@ -101,6 +102,7 @@ async function handleSubscriptionCreatedOrUpdated(subscriptionId: string) {
 }
 
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+  console.log("handleSubscriptionDeleted", subscription);
   await prisma.userSubscription.deleteMany({
     where: {
       stripeCustomerId: subscription.customer as string,
